@@ -1194,10 +1194,21 @@
         font-size: 22px;
         font-weight: 700;
         margin-bottom: 4px;
+        color: var(--text);
+      }
+
+      .register-modal-title-group h2 .gradient-text {
         background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+      }
+
+      .register-modal-title-group h2 .emoji {
+        color: inherit;
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
       }
 
       .register-modal-title-group p {
@@ -1873,7 +1884,12 @@
         <div class="register-modal-inner">
           <div class="register-modal-header">
             <div class="register-modal-title-group">
-              <h2>🚀 Присъедини се към BPR Pre-Sale</h2>
+              <h2>
+                <span class="emoji">🚀</span>
+                <span class="gradient-text"
+                  >Присъедини се към BPR Pre-Sale</span
+                >
+              </h2>
               <p>Попълни формата и ще те свържем за следващите стъпки</p>
             </div>
             <button class="register-modal-close" id="closeRegisterModal">

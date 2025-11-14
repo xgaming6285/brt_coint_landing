@@ -44,10 +44,20 @@
       h1 {
         font-size: 28px;
         margin-bottom: 10px;
+        color: var(--text);
+      }
+
+      h1 .gradient-text {
         background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+      }
+
+      h1 .emoji {
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
       }
 
       .stats {
@@ -257,10 +267,20 @@
         font-weight: 700;
         text-align: center;
         margin-bottom: 10px;
+        color: var(--text);
+      }
+
+      .login-title .gradient-text {
         background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+      }
+
+      .login-title .emoji {
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
       }
 
       .login-subtitle {
@@ -499,7 +519,7 @@
       <div class="login-box">
         <div class="login-content">
           <div class="login-icon">🔐</div>
-          <h2 class="login-title">Admin Access</h2>
+          <h2 class="login-title"><span class="gradient-text">Admin Access</span></h2>
           <p class="login-subtitle">
             Enter your private key to access the admin dashboard
           </p>
@@ -550,7 +570,7 @@
     <!-- Dashboard Content (hidden by default) -->
     <div class="dashboard-content" id="dashboardContent">
       <div class="container">
-        <h1>🎯 BPR Pre-Sale Registrations</h1>
+        <h1><span class="emoji">🎯</span> <span class="gradient-text">BPR Pre-Sale Registrations</span></h1>
         <p style="color: var(--muted); margin-bottom: 20px">
           Admin dashboard - View all registered users
         </p>

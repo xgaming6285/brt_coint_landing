@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service – BPR Token</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-alt: #080c1f;
+        --accent: #4ade80;
+        --accent-soft: rgba(74, 222, 128, 0.08);
+        --accent-2: #38bdf8;
+        --text: #f9fafb;
+        --muted: #9ca3af;
+        --danger: #f97373;
+        --border: #111827;
+        --radius-lg: 18px;
+        --radius-md: 12px;
+        --radius-sm: 999px;
+        --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+        --shadow-glow: 0 0 40px rgba(74, 222, 128, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #111827 0,
+          #020617 45%,
+          #020617 100%
+        );
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          to bottom,
+          rgba(2, 6, 23, 0.96),
+          rgba(2, 6, 23, 0.75)
+        );
+        border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+      }
+
+      .nav {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      @media (min-width: 1280px) {
+        .nav {
+          max-width: 1280px;
+          padding: 14px 32px;
+        }
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #4ade80,
+          #22c55e,
+          #16a34a,
+          #22d3ee
+        );
+        box-shadow: 0 0 26px rgba(34, 197, 94, 0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        color: #022c22;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .logo-text strong {
+        font-size: 16px;
+        letter-spacing: 0.06em;
+      }
+
+      .logo-text span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .btn {
+        border-radius: var(--radius-sm);
+        padding: 8px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.7);
+        color: var(--text);
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+      }
+
+      .btn:hover {
+        border-color: rgba(226, 232, 240, 0.7);
+        background: rgba(15, 23, 42, 0.95);
+        transform: translateY(-1px);
+      }
+
+      main {
+        flex: 1;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 40px 18px 60px;
+        width: 100%;
+      }
+
+      @media (min-width: 1280px) {
+        main {
+          max-width: 1280px;
+          padding: 48px 32px 80px;
+        }
+      }
+
+      .page-header {
+        margin-bottom: 32px;
+      }
+
+      .page-title {
+        font-size: clamp(28px, 4vw, 36px);
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+        margin-bottom: 12px;
+      }
+
+      .page-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        max-width: 720px;
+      }
+
+      .content-card {
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.12),
+          #020617
+        );
+        padding: 28px 24px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .content-section {
+        margin-bottom: 28px;
+      }
+
+      .content-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .content-section h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--accent);
+      }
+
+      .content-section h3 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        margin-top: 16px;
+      }
+
+      .content-section p {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 12px;
+        line-height: 1.7;
+      }
+
+      .content-section ul,
+      .content-section ol {
+        margin-left: 20px;
+        margin-bottom: 12px;
+      }
+
+      .content-section li {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 8px;
+        line-height: 1.7;
+      }
+
+      .content-section strong {
+        color: var(--text);
+      }
+
+      .warning-box {
+        background: rgba(249, 115, 115, 0.08);
+        border: 1px solid rgba(249, 115, 115, 0.3);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        margin: 20px 0;
+      }
+
+      .warning-box p {
+        margin-bottom: 0;
+      }
+
+      footer {
+        border-top: 1px solid rgba(15, 23, 42, 1);
+        margin-top: 18px;
+        padding: 14px 18px 24px;
+        font-size: 11px;
+        color: var(--muted);
+        background: radial-gradient(circle at top, #020617, #020617);
+      }
+
+      .footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      @media (min-width: 1280px) {
+        .footer-inner {
+          max-width: 1280px;
+          padding: 0 32px;
+        }
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .footer-links a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <nav class="nav">
+          <a href="index.html" class="nav-left">
+            <div class="logo">B</div>
+            <div class="logo-text">
+              <strong>BPR TOKEN</strong>
+              <span>Built for the next cycle</span>
+            </div>
+          </a>
+          <div>
+            <a href="index.html" class="btn">← Back to home</a>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <div class="page-header">
+          <h1 class="page-title">Terms of Service</h1>
+          <p class="page-subtitle">
+            Последна актуализация: <span id="date"></span>. Моля, прочети внимателно тези условия преди да участваш в BPR Token pre-sale.
+          </p>
+        </div>
+
+        <div class="content-card">
+          <div class="warning-box">
+            <p>
+              <strong>⚠️ ВАЖНО:</strong> Този документ представлява юридически договор между теб и BPR Token проекта. Като участваш в pre-sale или използваш нашия уебсайт, потвърждаваш, че си съгласен с всички условия по-долу.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>1. Приемане на условията</h2>
+            <p>
+              Чрез достъпа и използването на този уебсайт (bprtoken.com или свързани домейни) и/или участието в BPR Token pre-sale, ти приемаш да бъдеш обвързан от тези Условия за ползване ("Условия"). Ако не си съгласен с някое от тези условия, не използвай този уебсайт и не участвай в pre-sale-а.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>2. Дефиниции</h2>
+            <ul>
+              <li><strong>BPR Token</strong> или <strong>BPR</strong>: ERC-20 токен, развиван от нашия екип</li>
+              <li><strong>Pre-sale</strong>: Началният етап на продажба на токени преди публичния листинг</li>
+              <li><strong>TGE</strong>: Token Generation Event – момента, в който токените стават достъпни за claim</li>
+              <li><strong>Потребител</strong>: Всяко лице или юридическо лице, използващо този уебсайт</li>
+            </ul>
+          </div>
+
+          <div class="content-section">
+            <h2>3. Правоспособност и ограничения</h2>
+            <p>Участието в BPR Token pre-sale е достъпно само при следните условия:</p>
+            <ul>
+              <li>Ти си навършил минимум 18 години или законно съвършеннолетен според законодателството на твоята юрисдикция</li>
+              <li>Нямаш законови ограничения да участваш в покупки на криптовалутни токени</li>
+              <li>Не пребиваваш в юрисдикция, където покупката на криптовалутни токени е забранена или ограничена</li>
+              <li>Не си гражданин или резидент на Съединените американски щати, Китай, Северна Корея, Иран или други санкционирани държави</li>
+            </ul>
+            <p>
+              Ние си запазваме правото да откажем достъп или участие на всеки потребител по наше усмотрение, без обяснение.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>4. Рискове и отказ от отговорност</h2>
+            
+            <h3>4.1 Инвестиционен риск</h3>
+            <p>
+              Покупката на BPR токени е спекулативна и носи значителен финансов риск. Стойността на токените може да се понижи до нула. <strong>НЕ инвестирай средства, които не можеш да си позволиш да загубиш.</strong>
+            </p>
+
+            <h3>4.2 Липса на гаранции</h3>
+            <p>
+              BPR Token не гарантира печалба, възвръщаемост на инвестиции, листинг на борси или каквато и да е бъдеща стойност на токените. Всички прогнози, roadmap цели и планове са индикативни и могат да се променят.
+            </p>
+
+            <h3>4.3 Технологични рискове</h3>
+            <p>
+              Смарт договорите, блокчейн технологията и Web3 инфраструктурата са сложни и могат да съдържат непредвидени уязвимости. Въпреки че ще положим усилия за одит, не можем да гарантираме 100% сигурност.
+            </p>
+
+            <h3>4.4 Регулаторен риск</h3>
+            <p>
+              Законовата рамка около криптовалутите се развива бързо. Бъдещи регулации могат да повлияят негативно на проекта, включително да доведат до прекратяване на операциите.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>5. Не е финансов съвет</h2>
+            <p>
+              Нищо на този уебсайт не представлява финансов, инвестиционен, правен или данъчен съвет. Всички описания, материали и информация се предоставят само за образователни цели. Препоръчваме консултация с квалифициран финансов консултант преди инвестиция.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>6. Описание на токена</h2>
+            <p>
+              BPR Token е utility токен, предназначен за ползване в рамките на нашата DeFi екосистема. Токенът <strong>не</strong> е:
+            </p>
+            <ul>
+              <li>Ценна книга или инвестиционен инструмент</li>
+              <li>Дял в компания или право на собственост</li>
+              <li>Обещание за печалба или дивиденти</li>
+              <li>Емисия на ценни книжа по смисъла на местното или международно законодателство</li>
+            </ul>
+          </div>
+
+          <div class="content-section">
+            <h2>7. Pre-sale условия</h2>
+            
+            <h3>7.1 Цени и плащания</h3>
+            <p>
+              Цените и условията на pre-sale-а са посочени на уебсайта и могат да се променят по време на различни фази. Всички плащания са окончателни и необратими.
+            </p>
+
+            <h3>7.2 Vesting и lock период</h3>
+            <p>
+              Токените, закупени по време на pre-sale, подлежат на vesting условия: 10% се отключват при TGE, останалите 90% се освобождават линейно за 6 месеца. Тези условия са окончателни и не могат да бъдат променяни.
+            </p>
+
+            <h3>7.3 Отказ от покупка</h3>
+            <p>
+              След като транзакцията е потвърдена на блокчейна, тя е окончателна. Ние <strong>не предлагаме възстановявания или връщане на средства</strong> при никакви обстоятелства.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>8. Интелектуална собственост</h2>
+            <p>
+              Всички права върху съдържанието на този уебсайт – текст, графики, лого, дизайн, код – принадлежат на BPR Token или са лицензирани за употреба. Забранява се копирането, разпространението или модифицирането на материалите без изрично писмено разрешение.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>9. Лични данни и поверителност</h2>
+            <p>
+              Събирането и използването на лични данни се регулира от нашата <a href="privacy.html" style="color: var(--accent); text-decoration: underline;">Политика за поверителност</a>. Като използваш уебсайта, приемаш и тази политика.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>10. Ограничение на отговорност</h2>
+            <p>
+              В максималната степен, разрешена от закона, BPR Token, неговите основатели, служители, партньори и свързани лица <strong>не носят отговорност</strong> за:
+            </p>
+            <ul>
+              <li>Загуби на капитал или печалби</li>
+              <li>Технически грешки, прекъсвания на услугата или загуба на данни</li>
+              <li>Проблеми, произтичащи от действия на трети страни (борси, портфейли, блокчейн мрежи)</li>
+              <li>Промени в регулации или забрани</li>
+              <li>Кражби, хакове или измами от трети страни</li>
+            </ul>
+          </div>
+
+          <div class="content-section">
+            <h2>11. Обезщетение</h2>
+            <p>
+              Ти се задължаваш да обезщетиш и защитиш BPR Token и свързаните лица от всякакви искове, загуби, щети или разходи (включително адвокатски хонорари), произтичащи от:
+            </p>
+            <ul>
+              <li>Твоето нарушение на тези Условия</li>
+              <li>Твоето нарушение на местни закони или регулации</li>
+              <li>Твоето използване на уебсайта или участие в pre-sale</li>
+            </ul>
+          </div>
+
+          <div class="content-section">
+            <h2>12. Промени в условията</h2>
+            <p>
+              Ние си запазваме правото да променяме тези Условия по всяко време. Промените влизат в сила незабавно след публикуването им на уебсайта. Твоя отговорност е периодично да преглеждаш този документ.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>13. Приложимо право и спорове</h2>
+            <p>
+              Тези Условия се регулират от законодателството на [ЮРИСДИКЦИЯ]. Всякакви спорове ще се разрешават чрез арбитраж или в компетентен съд на територията на [ЮРИСДИКЦИЯ].
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>14. Делимост на клаузите</h2>
+            <p>
+              Ако някоя клауза от тези Условия бъде обявена за невалидна или неприложима, останалите клаузи остават в сила.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>15. Контакт</h2>
+            <p>
+              При въпроси относно тези Условия, свържи се с нас на:
+            </p>
+            <ul>
+              <li>Email: <strong>legal@bprtoken.com</strong></li>
+              <li>Telegram: <strong>@bprtoken_official</strong></li>
+            </ul>
+          </div>
+
+          <div class="warning-box" style="margin-top: 32px;">
+            <p>
+              <strong>Финална бележка:</strong> Като участваш в BPR Token pre-sale, потвърждаваш, че си прочел, разбрал и приел всички горепосочени условия. Ако не си съгласен, моля не участвай в проекта.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-inner">
+          <div>© <span id="year"></span> BPR Token. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document.getElementById("date").textContent = new Date().toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' });
+    </script>
+  </body>
+</html>
+

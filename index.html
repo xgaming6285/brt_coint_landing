@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BPR Token – Join the Next Crypto Wave</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-alt: #080c1f;
+        --accent: #4ade80;
+        --accent-soft: rgba(74, 222, 128, 0.08);
+        --accent-2: #38bdf8;
+        --text: #f9fafb;
+        --muted: #9ca3af;
+        --danger: #f97373;
+        --border: #111827;
+        --radius-lg: 18px;
+        --radius-md: 12px;
+        --radius-sm: 999px;
+        --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+        --shadow-glow: 0 0 40px rgba(74, 222, 128, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #111827 0,
+          #020617 45%,
+          #020617 100%
+        );
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          to bottom,
+          rgba(2, 6, 23, 0.96),
+          rgba(2, 6, 23, 0.75)
+        );
+        border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+      }
+
+      .nav {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      @media (min-width: 1280px) {
+        .nav {
+          max-width: 1280px;
+          padding: 14px 32px;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .nav {
+          max-width: 1400px;
+          padding: 14px 40px;
+        }
+      }
+
+      @media (min-width: 1920px) {
+        .nav {
+          max-width: 1600px;
+          padding: 14px 48px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .nav {
+          max-width: 2200px;
+          padding: 14px 48px;
+        }
+      }
+
+      @media (min-width: 3840px) {
+        .nav {
+          max-width: 3400px;
+          padding: 14px 60px;
+        }
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #4ade80,
+          #22c55e,
+          #16a34a,
+          #22d3ee
+        );
+        box-shadow: 0 0 26px rgba(34, 197, 94, 0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        color: #022c22;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .logo-text strong {
+        font-size: 16px;
+        letter-spacing: 0.06em;
+      }
+
+      .logo-text span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        position: relative;
+        padding-bottom: 2px;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 1px;
+        width: 0;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        transition: width 0.18s ease-out;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        border-radius: var(--radius-sm);
+        padding: 8px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.7);
+        color: var(--text);
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      }
+
+      .btn:hover {
+        border-color: rgba(226, 232, 240, 0.7);
+        background: rgba(15, 23, 42, 0.95);
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        border: none;
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        box-shadow: var(--shadow-glow);
+        font-weight: 600;
+        color: #022c22;
+      }
+
+      .btn-primary:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px) translateZ(0);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        border-radius: 999px;
+        padding: 3px 9px 3px 3px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: var(--muted);
+      }
+
+      .badge-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #4ade80,
+          #22c55e,
+          #22d3ee
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 14px rgba(34, 197, 94, 0.8);
+        font-size: 11px;
+        color: #022c22;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      .hero {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 38px 18px 32px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: 32px;
+        align-items: center;
+      }
+
+      @media (min-width: 1280px) {
+        .hero {
+          max-width: 1280px;
+          padding: 48px 32px 40px;
+          gap: 40px;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .hero {
+          max-width: 1400px;
+          padding: 56px 40px 48px;
+          gap: 48px;
+        }
+      }
+
+      @media (min-width: 1920px) {
+        .hero {
+          max-width: 1600px;
+          padding: 64px 48px 56px;
+          gap: 56px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .hero {
+          max-width: 2200px;
+          padding: 72px 48px 64px;
+          gap: 64px;
+        }
+      }
+
+      @media (min-width: 3840px) {
+        .hero {
+          max-width: 3400px;
+          padding: 96px 60px 80px;
+          gap: 80px;
+        }
+      }
+
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .hero-eyebrow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: clamp(32px, 4vw, 40px);
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      .hero-title span {
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        max-width: 480px;
+      }
+
+      .hero-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 6px;
+      }
+
+      .metric-card {
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.3),
+          #020617
+        );
+        min-width: 120px;
+      }
+
+      .metric-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .metric-value {
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+
+      .metric-note {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .hero-note {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      .hero-right {
+        position: relative;
+      }
+
+      .hero-card {
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(51, 65, 85, 0.95);
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 1),
+          #020617
+        );
+        padding: 16px 18px;
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(34, 197, 94, 0.16),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(56, 189, 248, 0.22),
+            transparent 60%
+          );
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      .hero-card-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .pill {
+        border-radius: 999px;
+        padding: 4px 9px;
+        font-size: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(15, 23, 42, 0.9);
+      }
+
+      .pill strong {
+        color: var(--accent);
+      }
+
+      .countdown {
+        margin-top: 6px;
+        padding: 10px;
+        border-radius: var(--radius-md);
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px dashed rgba(148, 163, 184, 0.7);
+      }
+
+      .countdown-label {
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .countdown-values {
+        display: flex;
+        gap: 10px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .countdown-values span {
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        min-width: 54px;
+        text-align: center;
+      }
+
+      .countdown-caption {
+        font-size: 11px;
+        margin-top: 6px;
+        color: var(--muted);
+      }
+
+      .card-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .stat-box {
+        border-radius: var(--radius-md);
+        padding: 9px 10px;
+        background: rgba(2, 6, 23, 0.9);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .stat-box strong {
+        display: block;
+        margin-top: 3px;
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      .progress {
+        margin-top: 12px;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 1);
+        overflow: hidden;
+        border: 1px solid rgba(30, 64, 175, 0.9);
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 62%;
+        background: linear-gradient(90deg, #22c55e, #22c55e, #0ea5e9);
+        box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+      }
+
+      .card-cta {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .card-cta .btn-primary {
+        width: 100%;
+        justify-content: center;
+        padding: 9px 16px;
+      }
+
+      .payment-hint {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .payment-hint span {
+        color: var(--accent-2);
+      }
+
+      .pill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .pill-tag {
+        padding: 4px 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        font-size: 10px;
+        color: var(--muted);
+        background: rgba(15, 23, 42, 0.9);
+      }
+
+      section {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 8px 18px 28px;
+      }
+
+      @media (min-width: 1280px) {
+        section {
+          max-width: 1280px;
+          padding: 12px 32px 36px;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        section {
+          max-width: 1400px;
+          padding: 16px 40px 40px;
+        }
+      }
+
+      @media (min-width: 1920px) {
+        section {
+          max-width: 1600px;
+          padding: 20px 48px 48px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        section {
+          max-width: 2200px;
+          padding: 24px 48px 56px;
+        }
+      }
+
+      @media (min-width: 3840px) {
+        section {
+          max-width: 3400px;
+          padding: 32px 60px 72px;
+        }
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+        margin-bottom: 14px;
+      }
+
+      .section-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .section-kicker {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .section-subtitle {
+        font-size: 12px;
+        color: var(--muted);
+        max-width: 420px;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 18px;
+      }
+
+      @media (min-width: 1920px) {
+        .about-grid {
+          gap: 24px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .about-grid {
+          gap: 32px;
+        }
+      }
+
+      .card {
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.16),
+          #020617
+        );
+        padding: 16px 16px 14px;
+        box-shadow: var(--shadow-soft);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .card h3 {
+        font-size: 15px;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+
+      .list {
+        margin-top: 6px;
+        padding-left: 16px;
+        font-size: 13px;
+      }
+
+      .list li + li {
+        margin-top: 4px;
+      }
+
+      .tokenomics-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: 18px;
+      }
+
+      @media (min-width: 1920px) {
+        .tokenomics-grid {
+          gap: 24px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .tokenomics-grid {
+          gap: 32px;
+        }
+      }
+
+      .tokenomics-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .tokenomics-table th,
+      .tokenomics-table td {
+        padding: 6px 8px;
+        text-align: left;
+        border-bottom: 1px solid rgba(30, 64, 175, 0.7);
+      }
+
+      .tokenomics-table th {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .tokenomics-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .pill-soft {
+        display: inline-flex;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: var(--muted);
+      }
+
+      .roadmap-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 14px;
+      }
+
+      @media (min-width: 1920px) {
+        .roadmap-grid {
+          gap: 18px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .roadmap-grid {
+          gap: 24px;
+        }
+      }
+
+      .roadmap-item {
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        background: rgba(15, 23, 42, 0.95);
+        padding: 12px 12px 10px;
+        font-size: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .roadmap-tag {
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 3px;
+      }
+
+      .roadmap-phase {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .roadmap-item ul {
+        padding-left: 16px;
+        margin-top: 4px;
+      }
+
+      .roadmap-item li + li {
+        margin-top: 2px;
+      }
+
+      .howto-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+      }
+
+      @media (min-width: 1920px) {
+        .howto-grid {
+          gap: 18px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .howto-grid {
+          gap: 24px;
+        }
+      }
+
+      .step {
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        background: rgba(15, 23, 42, 0.95);
+        padding: 12px 12px 10px;
+        font-size: 12px;
+      }
+
+      .step-num {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+
+      .step-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .faq-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 18px;
+      }
+
+      @media (min-width: 1920px) {
+        .faq-grid {
+          gap: 24px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .faq-grid {
+          gap: 32px;
+        }
+      }
+
+      .faq-item + .faq-item {
+        margin-top: 8px;
+      }
+
+      .faq-q {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .faq-a {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .cta-banner {
+        margin-top: 10px;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        background: radial-gradient(
+          circle at top left,
+          rgba(34, 197, 94, 0.18),
+          #020617
+        );
+        padding: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .cta-banner-main {
+        max-width: 540px;
+      }
+
+      footer {
+        border-top: 1px solid rgba(15, 23, 42, 1);
+        margin-top: 18px;
+        padding: 14px 18px 24px;
+        font-size: 11px;
+        color: var(--muted);
+        background: radial-gradient(circle at top, #020617, #020617);
+      }
+
+      .footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      @media (min-width: 1280px) {
+        .footer-inner {
+          max-width: 1280px;
+          padding: 0 32px;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .footer-inner {
+          max-width: 1400px;
+          padding: 0 40px;
+        }
+      }
+
+      @media (min-width: 1920px) {
+        .footer-inner {
+          max-width: 1600px;
+          padding: 0 48px;
+        }
+      }
+
+      @media (min-width: 2560px) {
+        .footer-inner {
+          max-width: 2200px;
+          padding: 0 48px;
+        }
+      }
+
+      @media (min-width: 3840px) {
+        .footer-inner {
+          max-width: 3400px;
+          padding: 0 60px;
+        }
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .footer-links a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+      }
+
+      @media (max-width: 840px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+          padding-top: 22px;
+        }
+
+        .hero-right {
+          order: -1;
+        }
+
+        .hero-card {
+          max-width: 420px;
+          margin: 0 auto;
+        }
+
+        .about-grid,
+        .tokenomics-grid,
+        .faq-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hero-actions {
+          flex-direction: column;
+        }
+
+        .hero-metrics {
+          flex-direction: column;
+        }
+
+        .section {
+          padding-inline: 16px;
+        }
+      }
+
+      /* PDF Modal Styles */
+      .pdf-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .pdf-modal.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pdf-modal-header {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding: 12px 20px;
+        background: rgba(15, 23, 42, 0.95);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+      }
+
+      .pdf-modal-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .pdf-modal-close {
+        background: rgba(239, 68, 68, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+        padding: 8px 16px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.18s ease-out;
+      }
+
+      .pdf-modal-close:hover {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.7);
+      }
+
+      .pdf-modal-content {
+        width: 100%;
+        max-width: 1200px;
+        height: calc(100vh - 120px);
+        background: white;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+      }
+
+      .pdf-modal-content iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      @media (max-width: 768px) {
+        .pdf-modal {
+          padding: 10px;
+        }
+
+        .pdf-modal-content {
+          height: calc(100vh - 100px);
+        }
+
+        .pdf-modal-header {
+          flex-direction: column;
+          gap: 10px;
+          align-items: stretch;
+        }
+
+        .pdf-modal-close {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      /* Registration Modal Styles */
+      .register-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 10000;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+      .register-modal.active {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
+      @media (max-height: 700px) {
+        .register-modal.active {
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+      }
+
+      .register-modal-content {
+        width: 100%;
+        max-width: 560px;
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 1),
+          #020617
+        );
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(51, 65, 85, 0.95);
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+        animation: modalSlideIn 0.3s ease-out;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .register-modal-content::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(34, 197, 94, 0.16),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(56, 189, 248, 0.22),
+            transparent 60%
+          );
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      .register-modal-inner {
+        position: relative;
+        z-index: 1;
+        padding: 24px;
+      }
+
+      .register-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .register-modal-title-group h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .register-modal-title-group p {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .register-modal-close {
+        background: rgba(239, 68, 68, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+        padding: 6px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.18s ease-out;
+        line-height: 1;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .register-modal-close:hover {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.7);
+      }
+
+      .register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .form-group label .required {
+        color: var(--accent);
+      }
+
+      .form-group input,
+      .form-group select {
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--text);
+        font-size: 14px;
+        transition: all 0.18s ease-out;
+        font-family: inherit;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+      }
+
+      .form-group input::placeholder {
+        color: rgba(156, 163, 175, 0.6);
+      }
+
+      .form-group .form-hint {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px 0;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        cursor: pointer;
+        accent-color: var(--accent);
+      }
+
+      .checkbox-group label {
+        font-size: 12px;
+        color: var(--muted);
+        cursor: pointer;
+        line-height: 1.4;
+      }
+
+      .checkbox-group label a {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
+      .form-submit-btn {
+        margin-top: 8px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        box-shadow: var(--shadow-glow);
+        font-weight: 600;
+        color: #022c22;
+        border-radius: var(--radius-sm);
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .form-submit-btn:hover:not(:disabled) {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      .form-submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .form-submit-btn .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #022c22;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .form-message {
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .form-message.success {
+        display: flex;
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(34, 197, 94, 0.5);
+        color: #4ade80;
+      }
+
+      .form-message.error {
+        display: flex;
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+      }
+
+      .form-divider {
+        height: 1px;
+        background: rgba(148, 163, 184, 0.3);
+        margin: 8px 0;
+      }
+
+      @media (max-width: 640px) {
+        .register-modal {
+          padding: 10px;
+        }
+
+        .register-modal.active {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        .register-modal-inner {
+          padding: 20px;
+        }
+
+        .register-modal-title-group h2 {
+          font-size: 20px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-height: 600px) {
+        .register-modal {
+          padding: 5px;
+        }
+
+        .register-modal.active {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+
+        .register-modal-inner {
+          padding: 16px;
+        }
+
+        .register-modal-title-group h2 {
+          font-size: 18px;
+        }
+
+        .register-form {
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <nav class="nav">
+          <div class="nav-left">
+            <div class="logo">B</div>
+            <div class="logo-text">
+              <strong>BPR TOKEN</strong>
+              <span>Built for the next cycle</span>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#tokenomics">Tokenomics</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#how-to-buy">How to buy</a>
+            <a href="#faq">FAQ</a>
+          </div>
+          <div class="nav-cta">
+            <button class="btn">Join Telegram</button>
+            <button class="btn btn-primary">Join pre-sale</button>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <!-- HERO -->
+        <section class="hero" id="top">
+          <div class="hero-left">
+            <div class="hero-eyebrow">
+              <div class="badge">
+                <div class="badge-dot">⚡</div>
+                Pre-sale live · Limited allocation
+              </div>
+            </div>
+            <h1 class="hero-title">
+              Влез рано в <span>BPR</span> – токен за следващия крипто цикъл.
+            </h1>
+            <p class="hero-subtitle">
+              BPR комбинира DeFi utility, лимитирано предлагане и
+              community-first подход. Присъедини се към pre-sale-а преди токенът
+              да бъде листнат на първите борси.
+            </p>
+
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <div class="metric-label">Start price</div>
+                <div class="metric-value">$0.003</div>
+                <div class="metric-note">early access only</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Total supply</div>
+                <div class="metric-value">21,000,000 BPR</div>
+                <div class="metric-note">hard capped</div>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary">Купи BPR в pre-sale</button>
+              <button class="btn" id="openWhitepaperBtn">
+                Прочети whitepaper (PDF)
+              </button>
+            </div>
+
+            <p class="hero-note">
+              ⚠️ Това не е финансов съвет. Винаги прави собствено проучване
+              (DYOR) и инвестирай отговорно.
+            </p>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-inner">
+                <div class="card-header">
+                  <div class="pill">
+                    <span>Phase 1</span> · <strong>Pre-sale</strong>
+                  </div>
+                  <span style="font-size: 11px; color: var(--muted)"
+                    >Chain: Ethereum · ERC-20</span
+                  >
+                </div>
+
+                <div class="countdown">
+                  <div class="countdown-label">Pre-sale завършва след:</div>
+                  <div class="countdown-values">
+                    <span id="hours">05ч</span>
+                    <span id="minutes">24м</span>
+                    <span id="seconds">18с</span>
+                  </div>
+                  <div class="countdown-caption">
+                    Остави имейл и ще получиш напомняне преди края на pre-sale.
+                  </div>
+                </div>
+
+                <div class="card-stats">
+                  <div class="stat-box">
+                    Sold so far
+                    <strong>62% of allocation</strong>
+                  </div>
+                  <div class="stat-box">
+                    Min. contribution
+                    <strong>$20 in USDT/ETH</strong>
+                  </div>
+                </div>
+
+                <div class="progress">
+                  <div class="progress-header">
+                    <span>Pre-sale progress</span>
+                    <span>13,020,000 / 21,000,000 BPR</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                  </div>
+                </div>
+
+                <div class="card-cta">
+                  <button class="btn btn-primary">
+                    Connect wallet &amp; buy BPR
+                  </button>
+                  <div class="payment-hint">
+                    Поддържаме <span>MetaMask</span>,
+                    <span>Trust Wallet</span> и други Web3 портфейли.
+                  </div>
+                </div>
+
+                <div class="pill-list">
+                  <span class="pill-tag">Staking rewards</span>
+                  <span class="pill-tag">Liquidity incentives</span>
+                  <span class="pill-tag">Community governance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">About BPR</div>
+              <div class="section-title">Защо съществува BPR?</div>
+            </div>
+            <p class="section-subtitle">
+              BPR е създаден за следващия bull market: токен с ограничено
+              предлагане, DeFi функционалност и истински community utility – не
+              просто hype.
+            </p>
+          </div>
+          <div class="about-grid">
+            <div class="card">
+              <h3>Real utility в DeFi екосистема</h3>
+              <p>
+                BPR служи като основен токен в екосистема от DeFi продукти:
+                staking пулове, liquidity mining и community-driven фонд за
+                стартиращи Web3 проекти.
+              </p>
+              <ul class="list">
+                <li>🪙 Staking с динамична доходност</li>
+                <li>💧 Liquidity rewards за LP провайдъри</li>
+                <li>🗳 Community гласуване за нови партньорства</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Community-first токен</h3>
+              <p>
+                Ранните инвеститори и активните членове на общността получават
+                приоритет при airdrops, достъп до private sales и специални NFT
+                колекции.
+              </p>
+              <ul class="list">
+                <li>🎁 Airdrops за активни holders</li>
+                <li>🔒 Lock &amp; earn механизъм за long-term вярващи</li>
+                <li>🌐 Партньорства с други DeFi/NFT проекти</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOKENOMICS -->
+        <section id="tokenomics">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Tokenomics</div>
+              <div class="section-title">Прозрачно разпределение на BPR</div>
+            </div>
+            <p class="section-subtitle">
+              Максимално предлагане от 21,000,000 BPR. Без скрити mint функции.
+              Pre-sale алокацията е ограничена и подлежи на прозрачни vesting
+              правила.
+            </p>
+          </div>
+
+          <div class="tokenomics-grid">
+            <div class="card">
+              <h3>Разпределение на токените</h3>
+              <table class="tokenomics-table">
+                <thead>
+                  <tr>
+                    <th>Категория</th>
+                    <th>Дял</th>
+                    <th>Vesting</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Pre-sale</td>
+                    <td>40%</td>
+                    <td>10% TGE, останалото за 6 месеца</td>
+                  </tr>
+                  <tr>
+                    <td>Liquidity &amp; CEX listings</td>
+                    <td>20%</td>
+                    <td>Локнати пулове, поетапно освобождаване</td>
+                  </tr>
+                  <tr>
+                    <td>Team &amp; advisors</td>
+                    <td>15%</td>
+                    <td>6 месеца cliff, 24 месеца vesting</td>
+                  </tr>
+                  <tr>
+                    <td>Ecosystem &amp; rewards</td>
+                    <td>15%</td>
+                    <td>Изплащане според on-chain гласувания</td>
+                  </tr>
+                  <tr>
+                    <td>Community &amp; marketing</td>
+                    <td>10%</td>
+                    <td>Гъвкаво, прозрачно разпределение</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style="font-size: 11px; margin-top: 6px; color: var(--muted)">
+                Смарт договорите ще бъдат public и подложени на външен одит
+                преди TGE.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Модел на стойността</h3>
+              <p>
+                Част от таксите в екосистемата се използват за обратно
+                изкупуване и burn на BPR, което създава дефлационен натиск с
+                времето.
+              </p>
+              <ul class="list">
+                <li>♻ 1–2% от таксите → buyback &amp; burn</li>
+                <li>💎 Higher tier staking за long-term holders</li>
+                <li>🎫 Достъп до private Web3 deal-и само с BPR</li>
+              </ul>
+              <div style="margin-top: 10px">
+                <span class="pill-soft"
+                  >Deflationary design · Community governed</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROADMAP -->
+        <section id="roadmap">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Roadmap</div>
+              <div class="section-title">План за растеж на BPR</div>
+            </div>
+            <p class="section-subtitle">
+              Реалистичен roadmap в три основни фази – от pre-sale до DeFi
+              екосистема с партньорства и крос-чейн интеграции.
+            </p>
+          </div>
+          <div class="roadmap-grid">
+            <div class="roadmap-item">
+              <div class="roadmap-tag">Q1–Q2 2025</div>
+              <div class="roadmap-phase">Phase 1 · Launch &amp; Pre-sale</div>
+              <ul>
+                <li>Branding, website, whitepaper</li>
+                <li>Pre-sale в няколко етапа</li>
+                <li>Smart contract deployment &amp; audit</li>
+              </ul>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-tag">Q3 2025</div>
+              <div class="roadmap-phase">Phase 2 · Listings &amp; Staking</div>
+              <ul>
+                <li>DEX listing (Uniswap/др.)</li>
+                <li>Initial CEX партньорства</li>
+                <li>Staking dApp &amp; rewards програма</li>
+              </ul>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-tag">Q4 2025+</div>
+              <div class="roadmap-phase">
+                Phase 3 · Ecosystem &amp; Governance
+              </div>
+              <ul>
+                <li>Launchpad за Web3 проекти, платящи в BPR</li>
+                <li>On-chain governance за ключови решения</li>
+                <li>Крос-чейн разширяване</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW TO BUY -->
+        <section id="how-to-buy">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">How to buy</div>
+              <div class="section-title">Как да купиш BPR в 3 лесни стъпки</div>
+            </div>
+            <p class="section-subtitle">
+              Ще добавим видео/guide. Засега това е basic flow, който всеки
+              начинаещ може да следва.
+            </p>
+          </div>
+          <div class="howto-grid">
+            <div class="step">
+              <div class="step-num">Стъпка 1</div>
+              <div class="step-title">Свържи Web3 портфейл</div>
+              <p>
+                Инсталирай MetaMask или Trust Wallet, превключи към Ethereum
+                mainnet и кликни „Connect wallet“ на страницата.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-num">Стъпка 2</div>
+              <div class="step-title">Избери сума</div>
+              <p>
+                Избери дали да платиш в USDT или ETH. Минималната сума е $20. Ще
+                видиш колко BPR ще получиш преди да потвърдиш.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-num">Стъпка 3</div>
+              <div class="step-title">Потвърди и claim</div>
+              <p>
+                Потвърди транзакцията в портфейла си. BPR токените ще са
+                достъпни за claim в момента на TGE (Token Generation Event).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ & COMMUNITY -->
+        <section id="faq">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">FAQ</div>
+              <div class="section-title">Често задавани въпроси</div>
+            </div>
+            <p class="section-subtitle">
+              Прочети най-важното, преди да участваш в pre-sale. Ако имаш други
+              въпроси – влез в нашия Telegram канал.
+            </p>
+          </div>
+          <div class="faq-grid">
+            <div>
+              <div class="faq-item">
+                <div class="faq-q">Това финансов съвет ли е?</div>
+                <div class="faq-a">
+                  Не. Нищо на този сайт не представлява финансов, инвестиционен
+                  или правен съвет. Рисковете в крипто са реални. Инвестирай
+                  само средства, които можеш да си позволиш да загубиш.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q">Кога ще бъде TGE и първият листинг?</div>
+                <div class="faq-a">
+                  Планираме TGE и първоначален DEX листинг в рамките на Q2 2025,
+                  при успешно приключване на pre-sale. Детайли ще бъдат обявени
+                  в официалните ни канали.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q">
+                  Има ли lock/vesting за pre-sale инвеститорите?
+                </div>
+                <div class="faq-a">
+                  Да. 10% от токените ти са достъпни при TGE, останалото се
+                  отключва линейно за 6 месеца. Целта е да се избегне силен sell
+                  pressure в първите дни.
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="cta-banner">
+                <div class="cta-banner-main">
+                  <div
+                    style="
+                      font-size: 13px;
+                      font-weight: 600;
+                      margin-bottom: 3px;
+                    "
+                  >
+                    Присъедини се към BPR общността
+                  </div>
+                  <div>
+                    Получавай новости за листинги, staking, airdrops и
+                    партньорства директно в Telegram и по имейл.
+                  </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <button class="btn btn-primary">Join Telegram</button>
+                  <button class="btn">Влез в Discord</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-inner">
+          <div>© <span id="year"></span> BPR Token. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="#top">Back to top</a>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="pdf-modal" id="pdfModal">
+      <div class="pdf-modal-header">
+        <div class="pdf-modal-title">BPR Token Whitepaper</div>
+        <button class="pdf-modal-close" id="closePdfModal">✕ Затвори</button>
+      </div>
+      <div class="pdf-modal-content">
+        <iframe id="pdfIframe" src="" title="BPR Token Whitepaper"></iframe>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="register-modal" id="registerModal">
+      <div class="register-modal-content">
+        <div class="register-modal-inner">
+          <div class="register-modal-header">
+            <div class="register-modal-title-group">
+              <h2>🚀 Присъедини се към BPR Pre-Sale</h2>
+              <p>Попълни формата и ще те свържем за следващите стъпки</p>
+            </div>
+            <button class="register-modal-close" id="closeRegisterModal">
+              ✕
+            </button>
+          </div>
+
+          <div id="formMessage" class="form-message"></div>
+
+          <form class="register-form" id="registrationForm">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="fullName">
+                Пълно име <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                placeholder="Иван Иванов"
+                required
+              />
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">
+                  Имейл <span class="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="ivan@example.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber"> Телефон </label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="+359 888 123 456"
+                />
+              </div>
+            </div>
+
+            <!-- Wallet Address -->
+            <div class="form-group">
+              <label for="walletAddress">
+                Wallet Address (ETH) <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="walletAddress"
+                name="walletAddress"
+                placeholder="0x..."
+                required
+              />
+              <span class="form-hint">
+                Въведи своя Ethereum wallet адрес (MetaMask, Trust Wallet и др.)
+              </span>
+            </div>
+
+            <!-- Country & Investment Amount -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="country"> Държава </label>
+                <select id="country" name="country">
+                  <option value="">Избери държава</option>
+                  <option value="BG">България</option>
+                  <option value="RO">Румъния</option>
+                  <option value="GR">Гърция</option>
+                  <option value="TR">Турция</option>
+                  <option value="RS">Сърбия</option>
+                  <option value="MK">Северна Македония</option>
+                  <option value="AL">Албания</option>
+                  <option value="OTHER">Друга</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="investmentAmount"> Планирана инвестиция </label>
+                <select id="investmentAmount" name="investmentAmount">
+                  <option value="">Избери сума</option>
+                  <option value="20-100">$20 - $100</option>
+                  <option value="100-500">$100 - $500</option>
+                  <option value="500-1000">$500 - $1,000</option>
+                  <option value="1000-5000">$1,000 - $5,000</option>
+                  <option value="5000+">$5,000+</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Referral Code (Optional) -->
+            <div class="form-group">
+              <label for="referralCode"> Referral код (опционално) </label>
+              <input
+                type="text"
+                id="referralCode"
+                name="referralCode"
+                placeholder="Ако имаш referral код, въведи го тук"
+              />
+              <span class="form-hint">
+                Получи 5% бонус BPR с валиден referral код
+              </span>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Terms & Conditions -->
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="acceptedTerms"
+                name="acceptedTerms"
+                required
+              />
+              <label for="acceptedTerms">
+                Приемам
+                <a href="terms.html" target="_blank">Terms & Conditions</a> и
+                <a href="privacy.html" target="_blank">Privacy Policy</a>.
+                Разбирам че инвестициите в крипто са високорискови.
+                <span class="required">*</span>
+              </label>
+            </div>
+
+            <!-- Marketing Consent -->
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="receiveUpdates"
+                name="receiveUpdates"
+              />
+              <label for="receiveUpdates">
+                Желая да получавам новини за BPR, листинги, airdrops и
+                партньорства
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="form-submit-btn" id="submitBtn">
+              <span id="submitBtnText">✨ Регистрирай се за Pre-Sale</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Динамична година във footer-а
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // PDF Modal functionality
+      const pdfModal = document.getElementById("pdfModal");
+      const openWhitepaperBtn = document.getElementById("openWhitepaperBtn");
+      const closePdfModal = document.getElementById("closePdfModal");
+      const pdfIframe = document.getElementById("pdfIframe");
+
+      // Open PDF modal
+      openWhitepaperBtn.addEventListener("click", function () {
+        pdfIframe.src = "files/BPR_Token_Whitepaper.pdf";
+        pdfModal.classList.add("active");
+        document.body.style.overflow = "hidden"; // Prevent scrolling
+      });
+
+      // Close PDF modal
+      closePdfModal.addEventListener("click", function () {
+        pdfModal.classList.remove("active");
+        pdfIframe.src = ""; // Clear iframe
+        document.body.style.overflow = ""; // Restore scrolling
+      });
+
+      // Close modal when clicking outside the content
+      pdfModal.addEventListener("click", function (e) {
+        if (e.target === pdfModal) {
+          pdfModal.classList.remove("active");
+          pdfIframe.src = "";
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && pdfModal.classList.contains("active")) {
+          pdfModal.classList.remove("active");
+          pdfIframe.src = "";
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Registration Modal functionality
+      const registerModal = document.getElementById("registerModal");
+      const closeRegisterModal = document.getElementById("closeRegisterModal");
+      const registrationForm = document.getElementById("registrationForm");
+      const formMessage = document.getElementById("formMessage");
+      const submitBtn = document.getElementById("submitBtn");
+      const submitBtnText = document.getElementById("submitBtnText");
+      const FORM_CACHE_KEY = "bpr_registration_form_cache";
+
+      // Get all CTA buttons that should open the registration modal
+      const registerButtons = document.querySelectorAll(
+        '.btn-primary, button[class*="btn-primary"]'
+      );
+
+      // Add click event to all register buttons
+      registerButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+          // Don't open modal if it's the whitepaper button
+          if (button.id === "openWhitepaperBtn") return;
+
+          e.preventDefault();
+          openRegisterModal();
+        });
+      });
+
+      // Save form data to localStorage
+      function saveFormData() {
+        const formData = new FormData(registrationForm);
+        const data = {
+          fullName: formData.get("fullName") || "",
+          email: formData.get("email") || "",
+          walletAddress: formData.get("walletAddress") || "",
+          phoneNumber: formData.get("phoneNumber") || "",
+          country: formData.get("country") || "",
+          investmentAmount: formData.get("investmentAmount") || "",
+          referralCode: formData.get("referralCode") || "",
+          acceptedTerms: formData.get("acceptedTerms") === "on",
+          receiveUpdates: formData.get("receiveUpdates") === "on",
+        };
+        localStorage.setItem(FORM_CACHE_KEY, JSON.stringify(data));
+      }
+
+      // Load form data from localStorage
+      function loadFormData() {
+        const cachedData = localStorage.getItem(FORM_CACHE_KEY);
+        if (cachedData) {
+          try {
+            const data = JSON.parse(cachedData);
+            document.getElementById("fullName").value = data.fullName || "";
+            document.getElementById("email").value = data.email || "";
+            document.getElementById("walletAddress").value =
+              data.walletAddress || "";
+            document.getElementById("phoneNumber").value =
+              data.phoneNumber || "";
+            document.getElementById("country").value = data.country || "";
+            document.getElementById("investmentAmount").value =
+              data.investmentAmount || "";
+            document.getElementById("referralCode").value =
+              data.referralCode || "";
+            document.getElementById("acceptedTerms").checked =
+              data.acceptedTerms || false;
+            document.getElementById("receiveUpdates").checked =
+              data.receiveUpdates || false;
+          } catch (error) {
+            console.error("Error loading cached form data:", error);
+          }
+        }
+      }
+
+      // Clear form cache
+      function clearFormCache() {
+        localStorage.removeItem(FORM_CACHE_KEY);
+      }
+
+      // Open register modal
+      function openRegisterModal() {
+        registerModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+        loadFormData(); // Load cached data when opening
+        hideMessage();
+      }
+
+      // Close register modal (with caching)
+      function closeRegisterModalHandler() {
+        saveFormData(); // Save form data when closing via X button
+        registerModal.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      closeRegisterModal.addEventListener("click", closeRegisterModalHandler);
+
+      // Remove click outside to close functionality
+      // (commented out the old click-outside-to-close code)
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && registerModal.classList.contains("active")) {
+          saveFormData(); // Save form data when closing with Escape
+          registerModal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Reset form
+      function resetForm() {
+        registrationForm.reset();
+        hideMessage();
+      }
+
+      // Show message
+      function showMessage(message, type) {
+        formMessage.textContent = message;
+        formMessage.className = `form-message ${type}`;
+        formMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      // Hide message
+      function hideMessage() {
+        formMessage.className = "form-message";
+        formMessage.textContent = "";
+      }
+
+      // Handle form submission
+      registrationForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        hideMessage();
+
+        // Get form data
+        const formData = new FormData(registrationForm);
+        const data = {
+          fullName: formData.get("fullName"),
+          email: formData.get("email"),
+          walletAddress: formData.get("walletAddress"),
+          phoneNumber: formData.get("phoneNumber"),
+          country: formData.get("country"),
+          investmentAmount: formData.get("investmentAmount"),
+          referralCode: formData.get("referralCode"),
+          acceptedTerms: formData.get("acceptedTerms") === "on",
+          receiveUpdates: formData.get("receiveUpdates") === "on",
+        };
+
+        // Basic validation
+        if (!data.fullName || !data.email || !data.walletAddress) {
+          showMessage("Моля попълни всички задължителни полета", "error");
+          return;
+        }
+
+        if (!data.acceptedTerms) {
+          showMessage("Трябва да приемеш условията, за да продължиш", "error");
+          return;
+        }
+
+        // Validate wallet address format (basic check)
+        if (
+          !data.walletAddress.startsWith("0x") ||
+          data.walletAddress.length !== 42
+        ) {
+          showMessage("Моля въведи валиден Ethereum wallet адрес", "error");
+          return;
+        }
+
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtnText.innerHTML = '<div class="spinner"></div> Обработка...';
+
+        try {
+          // Send data to backend
+          const response = await fetch("/api/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            showMessage("✅ " + result.message + " Благодарим ти!", "success");
+            registrationForm.reset();
+            clearFormCache(); // Clear cached data on successful submission
+
+            // Close modal after 3 seconds
+            setTimeout(() => {
+              registerModal.classList.remove("active");
+              document.body.style.overflow = "";
+              hideMessage();
+            }, 3000);
+          } else {
+            showMessage(
+              "❌ " + (result.message || "Грешка при регистрацията"),
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Registration error:", error);
+          showMessage(
+            "❌ Грешка при свързване със сървъра. Моля опитай отново.",
+            "error"
+          );
+        } finally {
+          // Re-enable submit button
+          submitBtn.disabled = false;
+          submitBtnText.innerHTML = "✨ Регистрирай се за Pre-Sale";
+        }
+      });
+
+      // Countdown Timer - персонализиран за всеки потребител
+      (function () {
+        const STORAGE_KEY = "bpr_countdown_start";
+        const INITIAL_TIME = 5 * 3600 + 24 * 60 + 18; // 05:24:18 в секунди
+
+        // Вземи или създай start time за този потребител
+        let startTime = localStorage.getItem(STORAGE_KEY);
+        if (!startTime) {
+          startTime = Date.now();
+          localStorage.setItem(STORAGE_KEY, startTime);
+        } else {
+          startTime = parseInt(startTime);
+        }
+
+        function updateCountdown() {
+          // Изчисли изминалото време
+          const elapsed = Math.floor((Date.now() - startTime) / 1000);
+          let remaining = INITIAL_TIME - elapsed;
+
+          // Ако времето е изтекло, постави на 0
+          if (remaining < 0) {
+            remaining = 0;
+          }
+
+          // Изчисли часове, минути и секунди
+          const hours = Math.floor(remaining / 3600);
+          const minutes = Math.floor((remaining % 3600) / 60);
+          const seconds = remaining % 60;
+
+          // Обнови DOM елементите
+          const hoursEl = document.getElementById("hours");
+          const minutesEl = document.getElementById("minutes");
+          const secondsEl = document.getElementById("seconds");
+
+          if (hoursEl && minutesEl && secondsEl) {
+            hoursEl.textContent = String(hours).padStart(2, "0") + "ч";
+            minutesEl.textContent = String(minutes).padStart(2, "0") + "м";
+            secondsEl.textContent = String(seconds).padStart(2, "0") + "с";
+          }
+
+          // Ако времето е изтекло, спри таймера
+          if (remaining === 0) {
+            clearInterval(timerInterval);
+          }
+        }
+
+        // Започни таймера
+        updateCountdown(); // Извикай веднага
+        const timerInterval = setInterval(updateCountdown, 1000); // После на всяка секунда
+      })();
+    </script>
+  </body>
+</html>

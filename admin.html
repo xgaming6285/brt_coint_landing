@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BPR Registration Admin - View All Registrations</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-alt: #080c1f;
+        --accent: #4ade80;
+        --accent-soft: rgba(74, 222, 128, 0.08);
+        --accent-2: #38bdf8;
+        --text: #f9fafb;
+        --muted: #9ca3af;
+        --border: #111827;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #111827 0,
+          #020617 45%,
+          #020617 100%
+        );
+        color: var(--text);
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .stats {
+        display: flex;
+        gap: 20px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        border-radius: 12px;
+        padding: 16px 20px;
+        min-width: 200px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        margin-top: 4px;
+        color: var(--accent);
+      }
+
+      .controls {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      button {
+        padding: 10px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        color: #022c22;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+      }
+
+      button:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      .table-container {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        border-radius: 18px;
+        padding: 20px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid rgba(30, 64, 175, 0.5);
+      }
+
+      th {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover {
+        background: rgba(74, 222, 128, 0.05);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        background: rgba(74, 222, 128, 0.2);
+        color: var(--accent);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+      }
+
+      .badge.no {
+        background: rgba(156, 163, 175, 0.2);
+        color: var(--muted);
+        border: 1px solid rgba(156, 163, 175, 0.3);
+      }
+
+      .wallet {
+        font-family: monospace;
+        font-size: 12px;
+        color: var(--accent-2);
+      }
+
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: var(--muted);
+      }
+
+      .error {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+        padding: 12px 16px;
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+
+      .search-box {
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--text);
+        font-size: 14px;
+        width: 300px;
+        font-family: inherit;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      /* Login Modal Styles */
+      .login-overlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-box {
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 1),
+          #020617
+        );
+        border: 1px solid rgba(51, 65, 85, 0.95);
+        border-radius: 18px;
+        padding: 40px;
+        max-width: 420px;
+        width: 90%;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(34, 197, 94, 0.16),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(56, 189, 248, 0.22),
+            transparent 60%
+          );
+        opacity: 0.85;
+        pointer-events: none;
+      }
+
+      .login-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .login-icon {
+        font-size: 48px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .login-title {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .login-subtitle {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 30px;
+      }
+
+      .login-input {
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--text);
+        font-size: 14px;
+        font-family: inherit;
+        margin-bottom: 20px;
+        transition: all 0.18s ease-out;
+      }
+
+      .login-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 14px;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        color: #022c22;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+      }
+
+      .login-button:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      .login-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .login-error {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        display: none;
+      }
+
+      .login-error.show {
+        display: block;
+      }
+
+      .dashboard-content {
+        display: none;
+      }
+
+      .dashboard-content.authenticated {
+        display: block;
+      }
+
+      .logout-btn {
+        background: rgba(239, 68, 68, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #f87171;
+      }
+
+      .logout-btn:hover {
+        background: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.7);
+        transform: translateY(-1px);
+      }
+
+      /* Email Button Styles */
+      .email-btn {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+        margin: 0 4px;
+      }
+
+      .email-btn.first-contact {
+        background: rgba(74, 222, 128, 0.15);
+        border-color: rgba(74, 222, 128, 0.5);
+        color: #4ade80;
+      }
+
+      .email-btn.first-contact:hover {
+        background: rgba(74, 222, 128, 0.25);
+        transform: translateY(-1px);
+      }
+
+      .email-btn.reminder {
+        background: rgba(251, 191, 36, 0.15);
+        border-color: rgba(251, 191, 36, 0.5);
+        color: #fbbf24;
+      }
+
+      .email-btn.reminder:hover {
+        background: rgba(251, 191, 36, 0.25);
+        transform: translateY(-1px);
+      }
+
+      .email-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .email-status {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .email-status.sent {
+        color: #4ade80;
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .modal-box {
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 1),
+          #020617
+        );
+        border: 1px solid rgba(51, 65, 85, 0.95);
+        border-radius: 18px;
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        position: relative;
+      }
+
+      .modal-header {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--accent);
+      }
+
+      .modal-body {
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .modal-btn {
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: 1px solid;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+      }
+
+      .modal-btn.confirm {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border-color: #22c55e;
+        color: #022c22;
+      }
+
+      .modal-btn.cancel {
+        background: rgba(156, 163, 175, 0.15);
+        border-color: rgba(156, 163, 175, 0.5);
+        color: var(--muted);
+      }
+
+      .modal-btn:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.1);
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Modal -->
+    <div class="login-overlay" id="loginOverlay">
+      <div class="login-box">
+        <div class="login-content">
+          <div class="login-icon">🔐</div>
+          <h2 class="login-title">Admin Access</h2>
+          <p class="login-subtitle">
+            Enter your private key to access the admin dashboard
+          </p>
+
+          <div class="login-error" id="loginError">
+            Invalid private key. Access denied.
+          </div>
+
+          <form id="loginForm">
+            <input
+              type="password"
+              id="privateKeyInput"
+              class="login-input"
+              placeholder="Enter private key..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="login-button">
+              🚀 Access Dashboard
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Confirmation Modal -->
+    <div class="modal-overlay" id="emailModal">
+      <div class="modal-box">
+        <div class="modal-header" id="modalHeader">Send Email</div>
+        <div class="modal-body" id="modalBody">
+          Are you sure you want to send this email?
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn cancel" onclick="closeEmailModal()">
+            Cancel
+          </button>
+          <button
+            class="modal-btn confirm"
+            id="confirmEmailBtn"
+            onclick="confirmSendEmail()"
+          >
+            Send Email
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Content (hidden by default) -->
+    <div class="dashboard-content" id="dashboardContent">
+      <div class="container">
+        <h1>🎯 BPR Pre-Sale Registrations</h1>
+        <p style="color: var(--muted); margin-bottom: 20px">
+          Admin dashboard - View all registered users
+        </p>
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-label">Total Registrations</div>
+            <div class="stat-value" id="totalCount">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Marketing Consent</div>
+            <div class="stat-value" id="marketingCount">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Today</div>
+            <div class="stat-value" id="todayCount">-</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button onclick="loadRegistrations()">🔄 Refresh Data</button>
+          <button onclick="exportToCSV()">📥 Export CSV</button>
+          <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+          <input
+            type="text"
+            class="search-box"
+            id="searchBox"
+            placeholder="Search by name, email, or wallet..."
+            onkeyup="filterTable()"
+          />
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none"></div>
+
+        <div class="table-container">
+          <div id="loading" class="loading">Loading registrations...</div>
+          <table id="dataTable" style="display: none">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Wallet Address</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>Investment</th>
+                <th>Referral</th>
+                <th>Marketing</th>
+                <th>Registered</th>
+                <th style="text-align: center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Authentication
+      const AUTH_SESSION_KEY = "bpr_admin_auth";
+
+      // Check authentication on page load
+      window.addEventListener("DOMContentLoaded", function () {
+        const isAuthenticated =
+          sessionStorage.getItem(AUTH_SESSION_KEY) === "true";
+
+        if (isAuthenticated) {
+          showDashboard();
+        }
+      });
+
+      // Handle login form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const privateKeyInput = document.getElementById("privateKeyInput");
+          const loginError = document.getElementById("loginError");
+          const loginButton = document.querySelector(".login-button");
+          const enteredKey = privateKeyInput.value;
+
+          // Disable button and show loading state
+          loginButton.disabled = true;
+          loginButton.textContent = "🔄 Verifying...";
+
+          try {
+            // Verify with server
+            const response = await fetch("/api/admin/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                privateKey: enteredKey,
+              }),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              // Authentication successful
+              sessionStorage.setItem(AUTH_SESSION_KEY, "true");
+              loginError.classList.remove("show");
+              showDashboard();
+            } else {
+              // Authentication failed
+              loginError.textContent =
+                result.message || "Invalid private key. Access denied.";
+              loginError.classList.add("show");
+              privateKeyInput.value = "";
+              privateKeyInput.focus();
+
+              // Shake animation
+              const loginBox = document.querySelector(".login-box");
+              loginBox.style.animation = "shake 0.3s";
+              setTimeout(() => {
+                loginBox.style.animation = "";
+              }, 300);
+            }
+          } catch (error) {
+            console.error("Authentication error:", error);
+            loginError.textContent =
+              "Error connecting to server. Please try again.";
+            loginError.classList.add("show");
+          } finally {
+            // Re-enable button
+            loginButton.disabled = false;
+            loginButton.textContent = "🚀 Access Dashboard";
+          }
+        });
+
+      function showDashboard() {
+        document.getElementById("loginOverlay").style.display = "none";
+        document
+          .getElementById("dashboardContent")
+          .classList.add("authenticated");
+        loadRegistrations();
+      }
+
+      function logout() {
+        if (confirm("Are you sure you want to logout?")) {
+          sessionStorage.removeItem(AUTH_SESSION_KEY);
+          location.reload();
+        }
+      }
+
+      // Add shake animation
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+      document.head.appendChild(style);
+
+      // Dashboard functionality
+      let registrations = [];
+
+      async function loadRegistrations() {
+        const loading = document.getElementById("loading");
+        const table = document.getElementById("dataTable");
+        const errorMessage = document.getElementById("errorMessage");
+
+        loading.style.display = "block";
+        table.style.display = "none";
+        errorMessage.style.display = "none";
+
+        try {
+          const response = await fetch("/api/registrations");
+          const result = await response.json();
+
+          if (result.success) {
+            registrations = result.data;
+            displayRegistrations(registrations);
+            updateStats(registrations);
+          } else {
+            showError("Failed to load registrations");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showError(
+            "Error connecting to server. Make sure the server is running!"
+          );
+        } finally {
+          loading.style.display = "none";
+        }
+      }
+
+      function displayRegistrations(data) {
+        const tableBody = document.getElementById("tableBody");
+        const table = document.getElementById("dataTable");
+
+        tableBody.innerHTML = "";
+
+        if (data.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="11" style="text-align: center; padding: 40px; color: var(--muted);">No registrations yet</td></tr>';
+        } else {
+          data.forEach((reg, index) => {
+            const row = document.createElement("tr");
+
+            // Check email status
+            const firstContactSent = reg.emailStatus?.firstContactSent || false;
+            const reminderSent = reg.emailStatus?.reminderSent || false;
+
+            row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><strong>${reg.fullName || "-"}</strong></td>
+                        <td>${reg.email || "-"}</td>
+                        <td class="wallet">${
+                          reg.walletAddress
+                            ? reg.walletAddress.slice(0, 10) +
+                              "..." +
+                              reg.walletAddress.slice(-8)
+                            : "-"
+                        }</td>
+                        <td>${reg.phoneNumber || "-"}</td>
+                        <td>${reg.country || "-"}</td>
+                        <td>${reg.investmentAmount || "-"}</td>
+                        <td>${reg.referralCode || "-"}</td>
+                        <td><span class="badge ${
+                          reg.receiveUpdates ? "" : "no"
+                        }">${reg.receiveUpdates ? "Yes" : "No"}</span></td>
+                        <td>${new Date(
+                          reg.registeredAt || reg.createdAt
+                        ).toLocaleString()}</td>
+                        <td style="text-align: center;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div>
+                                    <button 
+                                        class="email-btn first-contact" 
+                                        onclick="showEmailModal('${
+                                          reg._id
+                                        }', 'first-contact', '${reg.email}', '${
+              reg.fullName
+            }')"
+                                        title="Send first contact email"
+                                    >
+                                        📧 First Contact
+                                    </button>
+                                    <button 
+                                        class="email-btn reminder" 
+                                        onclick="showEmailModal('${
+                                          reg._id
+                                        }', 'reminder', '${reg.email}', '${
+              reg.fullName
+            }')"
+                                        title="Send reminder email"
+                                    >
+                                        ⏰ Reminder
+                                    </button>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 2px;">
+                                    ${
+                                      firstContactSent
+                                        ? '<div class="email-status sent">✓ First contact sent</div>'
+                                        : ""
+                                    }
+                                    ${
+                                      reminderSent
+                                        ? '<div class="email-status sent">✓ Reminder sent</div>'
+                                        : ""
+                                    }
+                                    ${
+                                      !firstContactSent && !reminderSent
+                                        ? '<div class="email-status">No emails sent</div>'
+                                        : ""
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                    `;
+            tableBody.appendChild(row);
+          });
+        }
+
+        table.style.display = "table";
+      }
+
+      function updateStats(data) {
+        document.getElementById("totalCount").textContent = data.length;
+        document.getElementById("marketingCount").textContent = data.filter(
+          (r) => r.receiveUpdates
+        ).length;
+
+        const today = new Date().toDateString();
+        const todayCount = data.filter((r) => {
+          const regDate = new Date(
+            r.registeredAt || r.createdAt
+          ).toDateString();
+          return regDate === today;
+        }).length;
+        document.getElementById("todayCount").textContent = todayCount;
+      }
+
+      function showError(message) {
+        const errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "❌ " + message;
+        errorMessage.style.display = "block";
+      }
+
+      function filterTable() {
+        const searchTerm = document
+          .getElementById("searchBox")
+          .value.toLowerCase();
+        const filtered = registrations.filter((reg) => {
+          return (
+            (reg.fullName || "").toLowerCase().includes(searchTerm) ||
+            (reg.email || "").toLowerCase().includes(searchTerm) ||
+            (reg.walletAddress || "").toLowerCase().includes(searchTerm) ||
+            (reg.phoneNumber || "").toLowerCase().includes(searchTerm) ||
+            (reg.country || "").toLowerCase().includes(searchTerm)
+          );
+        });
+        displayRegistrations(filtered);
+      }
+
+      function exportToCSV() {
+        if (registrations.length === 0) {
+          alert("No data to export!");
+          return;
+        }
+
+        const headers = [
+          "#",
+          "Full Name",
+          "Email",
+          "Wallet Address",
+          "Phone",
+          "Country",
+          "Investment Amount",
+          "Referral Code",
+          "Marketing Consent",
+          "Registered Date",
+        ];
+        const rows = registrations.map((reg, index) => [
+          index + 1,
+          reg.fullName || "",
+          reg.email || "",
+          reg.walletAddress || "",
+          reg.phoneNumber || "",
+          reg.country || "",
+          reg.investmentAmount || "",
+          reg.referralCode || "",
+          reg.receiveUpdates ? "Yes" : "No",
+          new Date(reg.registeredAt || reg.createdAt).toLocaleString(),
+        ]);
+
+        let csvContent = headers.join(",") + "\n";
+        rows.forEach((row) => {
+          csvContent += row.map((cell) => `"${cell}"`).join(",") + "\n";
+        });
+
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `bpr-registrations-${
+          new Date().toISOString().split("T")[0]
+        }.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
+
+      // Email modal functionality
+      let currentEmailData = null;
+
+      function showEmailModal(userId, emailType, email, fullName) {
+        currentEmailData = { userId, emailType, email, fullName };
+
+        const modal = document.getElementById("emailModal");
+        const modalHeader = document.getElementById("modalHeader");
+        const modalBody = document.getElementById("modalBody");
+
+        const emailTypeText =
+          emailType === "first-contact" ? "First Contact" : "Reminder";
+        const emailIcon = emailType === "first-contact" ? "📧" : "⏰";
+
+        modalHeader.textContent = `${emailIcon} Send ${emailTypeText} Email`;
+        modalBody.innerHTML = `
+                <p>You are about to send a <strong>${emailTypeText}</strong> email to:</p>
+                <p style="margin: 15px 0; padding: 15px; background: rgba(74, 222, 128, 0.1); border-radius: 8px; border: 1px solid rgba(74, 222, 128, 0.3);">
+                    <strong style="color: #4ade80;">${fullName}</strong><br>
+                    <span style="color: #94a3b8; font-size: 13px;">${email}</span>
+                </p>
+                <p style="color: var(--muted); font-size: 13px;">The email will be sent immediately. Continue?</p>
+            `;
+
+        modal.classList.add("show");
+      }
+
+      function closeEmailModal() {
+        const modal = document.getElementById("emailModal");
+        modal.classList.remove("show");
+        currentEmailData = null;
+      }
+
+      async function confirmSendEmail() {
+        if (!currentEmailData) return;
+
+        const confirmBtn = document.getElementById("confirmEmailBtn");
+        const originalText = confirmBtn.innerHTML;
+
+        try {
+          // Show loading state
+          confirmBtn.disabled = true;
+          confirmBtn.innerHTML = '<span class="spinner"></span> Sending...';
+
+          const response = await fetch("/api/send-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: currentEmailData.userId,
+              emailType: currentEmailData.emailType,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Show success message
+            const modalBody = document.getElementById("modalBody");
+            modalBody.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">✅</div>
+                            <p style="color: #4ade80; font-weight: 600; font-size: 16px;">Email Sent Successfully!</p>
+                            <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">
+                                The email has been sent to ${currentEmailData.email}
+                            </p>
+                        </div>
+                    `;
+
+            // Hide confirm button
+            confirmBtn.style.display = "none";
+
+            // Reload data to update email status
+            setTimeout(() => {
+              closeEmailModal();
+              confirmBtn.style.display = "";
+              confirmBtn.disabled = false;
+              confirmBtn.innerHTML = originalText;
+              loadRegistrations();
+            }, 2000);
+          } else {
+            throw new Error(result.message || "Failed to send email");
+          }
+        } catch (error) {
+          console.error("Error sending email:", error);
+
+          const modalBody = document.getElementById("modalBody");
+          modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                        <p style="color: #f87171; font-weight: 600; font-size: 16px;">Failed to Send Email</p>
+                        <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">
+                            ${
+                              error.message ||
+                              "An error occurred while sending the email. Please try again."
+                            }
+                        </p>
+                    </div>
+                `;
+
+          confirmBtn.style.display = "none";
+
+          setTimeout(() => {
+            closeEmailModal();
+            confirmBtn.style.display = "";
+            confirmBtn.disabled = false;
+            confirmBtn.innerHTML = originalText;
+          }, 3000);
+        }
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("emailModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeEmailModal();
+          }
+        });
+
+      // Load data on page load
+      loadRegistrations();
+    </script>
+  </body>
+</html>

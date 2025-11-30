@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BPR Staking – Earn Up to 35% APY | BPR Token</title>
+    <meta
+      name="description"
+      content="Stake your BPR tokens and earn up to 35% APY. Multiple staking tiers with flexible lock periods. Start earning passive income today."
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#050816" />
+
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-alt: #080c1f;
+        --accent: #4ade80;
+        --accent-soft: rgba(74, 222, 128, 0.08);
+        --accent-2: #38bdf8;
+        --accent-3: #f59e0b;
+        --accent-4: #a855f7;
+        --text: #f9fafb;
+        --muted: #9ca3af;
+        --danger: #f97373;
+        --border: #111827;
+        --radius-lg: 18px;
+        --radius-md: 12px;
+        --radius-sm: 999px;
+        --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+        --shadow-glow: 0 0 40px rgba(74, 222, 128, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #111827 0,
+          #020617 45%,
+          #020617 100%
+        );
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          to bottom,
+          rgba(2, 6, 23, 0.96),
+          rgba(2, 6, 23, 0.75)
+        );
+        border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+      }
+
+      .nav {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      @media (min-width: 1280px) {
+        .nav {
+          max-width: 1280px;
+          padding: 14px 32px;
+        }
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #4ade80,
+          #22c55e,
+          #16a34a,
+          #22d3ee
+        );
+        box-shadow: 0 0 26px rgba(34, 197, 94, 0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        color: #022c22;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .logo-text strong {
+        font-size: 16px;
+        letter-spacing: 0.06em;
+      }
+
+      .logo-text span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        position: relative;
+        padding-bottom: 2px;
+        transition: color 0.18s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        border-radius: var(--radius-sm);
+        padding: 8px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.7);
+        color: var(--text);
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.18s ease-out;
+      }
+
+      .btn:hover {
+        border-color: rgba(226, 232, 240, 0.7);
+        background: rgba(15, 23, 42, 0.95);
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        border: none;
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        box-shadow: var(--shadow-glow);
+        font-weight: 600;
+        color: #022c22;
+      }
+
+      .btn-primary:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      main {
+        flex: 1;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 40px 18px;
+        width: 100%;
+      }
+
+      @media (min-width: 1280px) {
+        main {
+          max-width: 1280px;
+          padding: 48px 32px;
+        }
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .page-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(74, 222, 128, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        font-size: 12px;
+        color: var(--accent);
+        margin-bottom: 16px;
+      }
+
+      .page-title {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .page-subtitle {
+        font-size: 16px;
+        color: var(--muted);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Stats Row */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 48px;
+      }
+
+      .stat-card {
+        background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.16),
+          #020617
+        );
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .stat-card .icon {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .stat-card .value {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .stat-card .label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      /* Staking Tiers */
+      .tiers-section {
+        margin-bottom: 48px;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .tiers-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .tier-card {
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 1),
+          #020617
+        );
+        border: 1px solid rgba(51, 65, 85, 0.95);
+        border-radius: var(--radius-lg);
+        padding: 24px 20px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .tier-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(74, 222, 128, 0.5);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .tier-card.popular {
+        border-color: var(--accent);
+        box-shadow: 0 0 30px rgba(74, 222, 128, 0.2);
+      }
+
+      .tier-card.popular::before {
+        content: "🔥 Most Popular";
+        position: absolute;
+        top: 12px;
+        right: -28px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #022c22;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 32px;
+        transform: rotate(45deg);
+      }
+
+      .tier-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+
+      .tier-bronze .tier-icon {
+        background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+        border: 1px solid rgba(205, 127, 50, 0.5);
+      }
+
+      .tier-silver .tier-icon {
+        background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+        border: 1px solid rgba(192, 192, 192, 0.5);
+      }
+
+      .tier-gold .tier-icon {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+        border: 1px solid rgba(255, 215, 0, 0.5);
+      }
+
+      .tier-diamond .tier-icon {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.05));
+        border: 1px solid rgba(168, 85, 247, 0.5);
+      }
+
+      .tier-name {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .tier-lock {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .tier-apy {
+        font-size: 36px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 4px;
+      }
+
+      .tier-apy-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .tier-features {
+        list-style: none;
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      .tier-features li {
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .tier-features li::before {
+        content: "✓";
+        color: var(--accent);
+        font-weight: bold;
+      }
+
+      .tier-min {
+        font-size: 11px;
+        color: var(--muted);
+        padding: 8px 12px;
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .tier-min strong {
+        color: var(--text);
+      }
+
+      .tier-btn {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+
+      .tier-btn-outline {
+        background: transparent;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: var(--text);
+      }
+
+      .tier-btn-outline:hover {
+        border-color: var(--accent);
+        background: rgba(74, 222, 128, 0.1);
+      }
+
+      .tier-btn-primary {
+        background: linear-gradient(135deg, #22c55e, #16a34a, #0ea5e9);
+        color: #022c22;
+        box-shadow: var(--shadow-glow);
+      }
+
+      .tier-btn-primary:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+      }
+
+      /* Calculator Section */
+      .calculator-section {
+        background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.16),
+          #020617
+        );
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 32px;
+        margin-bottom: 48px;
+      }
+
+      .calculator-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: center;
+      }
+
+      .calculator-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .input-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .input-group input,
+      .input-group select {
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--text);
+        font-size: 16px;
+        font-family: inherit;
+        transition: all 0.18s;
+      }
+
+      .input-group input:focus,
+      .input-group select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+      }
+
+      .calculator-result {
+        text-align: center;
+        padding: 24px;
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: var(--radius-lg);
+        border: 1px dashed rgba(74, 222, 128, 0.5);
+      }
+
+      .result-label {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .result-value {
+        font-size: 42px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #4ade80, #22c55e, #38bdf8);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 8px;
+      }
+
+      .result-detail {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .result-breakdown {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .breakdown-item {
+        padding: 12px;
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 8px;
+      }
+
+      .breakdown-item .value {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .breakdown-item .label {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* How It Works */
+      .how-section {
+        margin-bottom: 48px;
+      }
+
+      .how-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .how-card {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(30, 64, 175, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        text-align: center;
+        position: relative;
+      }
+
+      .how-card::after {
+        content: "→";
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: var(--accent);
+      }
+
+      .how-card:last-child::after {
+        display: none;
+      }
+
+      .how-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #022c22;
+        font-weight: 800;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+      }
+
+      .how-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .how-desc {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: radial-gradient(
+          circle at top left,
+          rgba(34, 197, 94, 0.18),
+          #020617
+        );
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .cta-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 24px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .cta-buttons .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      footer {
+        border-top: 1px solid rgba(15, 23, 42, 1);
+        padding: 14px 18px 24px;
+        font-size: 11px;
+        color: var(--muted);
+        background: radial-gradient(circle at top, #020617, #020617);
+      }
+
+      .footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .footer-links a {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .tiers-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .stats-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .tiers-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .stats-row {
+          grid-template-columns: 1fr;
+        }
+        
+        .calculator-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .how-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .how-card::after {
+          display: none;
+        }
+        
+        .nav-links {
+          display: none;
+        }
+        
+        .result-breakdown {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-header {
+          margin-bottom: 32px;
+        }
+        
+        .tier-card {
+          padding: 20px 16px;
+        }
+        
+        .calculator-section {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <nav class="nav">
+          <a href="index.html" class="nav-left">
+            <div class="logo">B</div>
+            <div class="logo-text">
+              <strong>BPR TOKEN</strong>
+              <span>Built for the next cycle</span>
+            </div>
+          </a>
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="staking.html" class="active">Staking</a>
+            <a href="nft.html">NFT</a>
+            <a href="team.html">Team</a>
+            <a href="referral.html">Referral</a>
+          </div>
+          <div class="nav-cta">
+            <button class="btn" onclick="window.open('https://t.me/bprtoken', '_blank')">
+              Join Telegram
+            </button>
+            <a href="index.html" class="btn btn-primary">Join Pre-Sale</a>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-badge">
+            <span>⚡</span>
+            <span>Coming Q3 2025</span>
+          </div>
+          <h1 class="page-title">Stake BPR & Earn Rewards</h1>
+          <p class="page-subtitle">
+            Lock your BPR tokens and earn up to 35% APY. Choose your tier, stake your tokens, and watch your holdings grow.
+          </p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="icon">📊</div>
+            <div class="value">35%</div>
+            <div class="label">Max APY</div>
+          </div>
+          <div class="stat-card">
+            <div class="icon">🔒</div>
+            <div class="value">$0</div>
+            <div class="label">Total Value Locked</div>
+          </div>
+          <div class="stat-card">
+            <div class="icon">👥</div>
+            <div class="value">0</div>
+            <div class="label">Active Stakers</div>
+          </div>
+          <div class="stat-card">
+            <div class="icon">💰</div>
+            <div class="value">0 BPR</div>
+            <div class="label">Rewards Distributed</div>
+          </div>
+        </div>
+
+        <!-- Staking Tiers -->
+        <div class="tiers-section">
+          <h2 class="section-title">Choose Your Staking Tier</h2>
+          <div class="tiers-grid">
+            <!-- Bronze Tier -->
+            <div class="tier-card tier-bronze">
+              <div class="tier-icon">🥉</div>
+              <div class="tier-name">Bronze</div>
+              <div class="tier-lock">30 Days Lock</div>
+              <div class="tier-apy">12%</div>
+              <div class="tier-apy-label">Annual Percentage Yield</div>
+              <ul class="tier-features">
+                <li>Flexible staking</li>
+                <li>Daily reward claims</li>
+                <li>No minimum lock</li>
+              </ul>
+              <div class="tier-min">Min. Stake: <strong>100 BPR</strong></div>
+              <button class="tier-btn tier-btn-outline" disabled>Coming Soon</button>
+            </div>
+
+            <!-- Silver Tier -->
+            <div class="tier-card tier-silver">
+              <div class="tier-icon">🥈</div>
+              <div class="tier-name">Silver</div>
+              <div class="tier-lock">90 Days Lock</div>
+              <div class="tier-apy">18%</div>
+              <div class="tier-apy-label">Annual Percentage Yield</div>
+              <ul class="tier-features">
+                <li>All Bronze benefits</li>
+                <li>Priority support</li>
+                <li>Airdrop eligibility</li>
+              </ul>
+              <div class="tier-min">Min. Stake: <strong>1,000 BPR</strong></div>
+              <button class="tier-btn tier-btn-outline" disabled>Coming Soon</button>
+            </div>
+
+            <!-- Gold Tier -->
+            <div class="tier-card tier-gold popular">
+              <div class="tier-icon">🥇</div>
+              <div class="tier-name">Gold</div>
+              <div class="tier-lock">180 Days Lock</div>
+              <div class="tier-apy">25%</div>
+              <div class="tier-apy-label">Annual Percentage Yield</div>
+              <ul class="tier-features">
+                <li>All Silver benefits</li>
+                <li>Exclusive NFT drops</li>
+                <li>Governance voting</li>
+              </ul>
+              <div class="tier-min">Min. Stake: <strong>5,000 BPR</strong></div>
+              <button class="tier-btn tier-btn-primary" disabled>Coming Soon</button>
+            </div>
+
+            <!-- Diamond Tier -->
+            <div class="tier-card tier-diamond">
+              <div class="tier-icon">💎</div>
+              <div class="tier-name">Diamond</div>
+              <div class="tier-lock">365 Days Lock</div>
+              <div class="tier-apy">35%</div>
+              <div class="tier-apy-label">Annual Percentage Yield</div>
+              <ul class="tier-features">
+                <li>All Gold benefits</li>
+                <li>VIP Discord access</li>
+                <li>Private sales access</li>
+                <li>1-on-1 support</li>
+              </ul>
+              <div class="tier-min">Min. Stake: <strong>25,000 BPR</strong></div>
+              <button class="tier-btn tier-btn-outline" disabled>Coming Soon</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculator Section -->
+        <div class="calculator-section">
+          <h2 class="section-title">📈 Staking Calculator</h2>
+          <div class="calculator-grid">
+            <div class="calculator-inputs">
+              <div class="input-group">
+                <label for="stakeAmount">Amount to Stake (BPR)</label>
+                <input type="number" id="stakeAmount" value="10000" min="100" step="100" />
+              </div>
+              <div class="input-group">
+                <label for="stakeTier">Staking Tier</label>
+                <select id="stakeTier">
+                  <option value="12">Bronze (12% APY)</option>
+                  <option value="18">Silver (18% APY)</option>
+                  <option value="25" selected>Gold (25% APY)</option>
+                  <option value="35">Diamond (35% APY)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="stakeDuration">Staking Duration</label>
+                <select id="stakeDuration">
+                  <option value="30">30 Days</option>
+                  <option value="90">90 Days</option>
+                  <option value="180" selected>180 Days</option>
+                  <option value="365">365 Days</option>
+                </select>
+              </div>
+            </div>
+            <div class="calculator-result">
+              <div class="result-label">Estimated Rewards</div>
+              <div class="result-value" id="resultValue">1,232 BPR</div>
+              <div class="result-detail">Based on current APY rates</div>
+              <div class="result-breakdown">
+                <div class="breakdown-item">
+                  <div class="value" id="dailyReward">6.8</div>
+                  <div class="label">Daily BPR</div>
+                </div>
+                <div class="breakdown-item">
+                  <div class="value" id="monthlyReward">205</div>
+                  <div class="label">Monthly BPR</div>
+                </div>
+                <div class="breakdown-item">
+                  <div class="value" id="totalValue">11,232</div>
+                  <div class="label">Total After</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-section">
+          <h2 class="section-title">How Staking Works</h2>
+          <div class="how-grid">
+            <div class="how-card">
+              <div class="how-number">1</div>
+              <div class="how-title">Connect Wallet</div>
+              <div class="how-desc">Connect your MetaMask or Trust Wallet to the BPR staking dApp.</div>
+            </div>
+            <div class="how-card">
+              <div class="how-number">2</div>
+              <div class="how-title">Choose Tier & Amount</div>
+              <div class="how-desc">Select your preferred staking tier and enter the amount of BPR to stake.</div>
+            </div>
+            <div class="how-card">
+              <div class="how-number">3</div>
+              <div class="how-title">Earn Rewards</div>
+              <div class="how-desc">Watch your rewards accumulate daily. Claim anytime after your lock period.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <h2 class="cta-title">Get Early Access to Staking</h2>
+          <p class="cta-subtitle">
+            Join the pre-sale now to be among the first to stake when the dApp launches in Q3 2025.
+          </p>
+          <div class="cta-buttons">
+            <a href="index.html" class="btn btn-primary">Join Pre-Sale Now</a>
+            <button class="btn" onclick="window.open('https://t.me/bprtoken', '_blank')">
+              Get Notified on Telegram
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-inner">
+          <div>© <span id="year"></span> BPR Token. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Calculator functionality
+      const stakeAmount = document.getElementById("stakeAmount");
+      const stakeTier = document.getElementById("stakeTier");
+      const stakeDuration = document.getElementById("stakeDuration");
+      const resultValue = document.getElementById("resultValue");
+      const dailyReward = document.getElementById("dailyReward");
+      const monthlyReward = document.getElementById("monthlyReward");
+      const totalValue = document.getElementById("totalValue");
+
+      function calculateRewards() {
+        const amount = parseFloat(stakeAmount.value) || 0;
+        const apy = parseFloat(stakeTier.value) / 100;
+        const days = parseInt(stakeDuration.value);
+
+        const dailyRate = apy / 365;
+        const daily = amount * dailyRate;
+        const totalReward = daily * days;
+        const total = amount + totalReward;
+
+        resultValue.textContent = Math.round(totalReward).toLocaleString() + " BPR";
+        dailyReward.textContent = daily.toFixed(1);
+        monthlyReward.textContent = Math.round(daily * 30).toLocaleString();
+        totalValue.textContent = Math.round(total).toLocaleString();
+      }
+
+      stakeAmount.addEventListener("input", calculateRewards);
+      stakeTier.addEventListener("change", calculateRewards);
+      stakeDuration.addEventListener("change", calculateRewards);
+
+      calculateRewards();
+    </script>
+  </body>
+</html>
+

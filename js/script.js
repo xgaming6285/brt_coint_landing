@@ -1,6 +1,401 @@
 // Динамична година във footer-а
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ============================================
+// PARTICLE ANIMATION SYSTEM
+// ============================================
+(function initParticles() {
+  const canvas = document.getElementById("particles-canvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let animationId;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.5 + 0.2;
+      this.color = Math.random() > 0.5 ? "#4ade80" : "#38bdf8";
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function connectParticles() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = "#4ade80";
+          ctx.globalAlpha = 0.1 * (1 - distance / 120);
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((particle) => {
+      particle.update();
+      particle.draw();
+    });
+
+    connectParticles();
+    animationId = requestAnimationFrame(animate);
+  }
+
+  function init() {
+    resizeCanvas();
+    particles = [];
+    const particleCount = Math.min(
+      80,
+      Math.floor((canvas.width * canvas.height) / 15000)
+    );
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    animate();
+  }
+
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(animationId);
+    init();
+  });
+
+  init();
+})();
+
+// ============================================
+// SOCIAL PROOF TOAST NOTIFICATIONS
+// ============================================
+(function initToastNotifications() {
+  const toastContainer = document.getElementById("toastContainer");
+  if (!toastContainer) return;
+
+  const toastData = [
+    {
+      icon: "🎉",
+      name: "Георги М.",
+      action: "регистрира се за",
+      amount: "$500",
+      time: "преди 2 мин",
+    },
+    {
+      icon: "🚀",
+      name: "Мария К.",
+      action: "купи BPR за",
+      amount: "$1,200",
+      time: "преди 5 мин",
+    },
+    {
+      icon: "💎",
+      name: "Иван П.",
+      action: "регистрира се за",
+      amount: "$250",
+      time: "преди 8 мин",
+    },
+    {
+      icon: "🔥",
+      name: "Петър Д.",
+      action: "купи BPR за",
+      amount: "$3,000",
+      time: "преди 12 мин",
+    },
+    {
+      icon: "⚡",
+      name: "Елена С.",
+      action: "регистрира се за",
+      amount: "$100",
+      time: "преди 15 мин",
+    },
+    {
+      icon: "🌟",
+      name: "Димитър В.",
+      action: "купи BPR за",
+      amount: "$750",
+      time: "преди 18 мин",
+    },
+    {
+      icon: "💰",
+      name: "Анна Б.",
+      action: "регистрира се за",
+      amount: "$2,500",
+      time: "преди 22 мин",
+    },
+    {
+      icon: "🎯",
+      name: "Николай Р.",
+      action: "купи BPR за",
+      amount: "$420",
+      time: "преди 25 мин",
+    },
+  ];
+
+  let currentIndex = 0;
+  let toastTimeout;
+
+  function showToast() {
+    const data = toastData[currentIndex];
+
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerHTML = `
+      <div class="toast-icon">${data.icon}</div>
+      <div class="toast-content">
+        <div class="toast-title">${data.name} ${data.action}</div>
+        <div class="toast-subtitle"><span class="highlight">${data.amount}</span> в pre-sale</div>
+      </div>
+      <div class="toast-time">${data.time}</div>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Remove toast after 5 seconds
+    setTimeout(() => {
+      toast.classList.add("hiding");
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 400);
+    }, 5000);
+
+    currentIndex = (currentIndex + 1) % toastData.length;
+  }
+
+  // Show first toast after 3 seconds, then every 8-15 seconds randomly
+  setTimeout(() => {
+    showToast();
+
+    function scheduleNextToast() {
+      const delay = 8000 + Math.random() * 7000;
+      toastTimeout = setTimeout(() => {
+        showToast();
+        scheduleNextToast();
+      }, delay);
+    }
+
+    scheduleNextToast();
+  }, 3000);
+})();
+
+// ============================================
+// ANIMATED NUMBER COUNTERS
+// ============================================
+function animateCounter(
+  element,
+  target,
+  duration = 2000,
+  prefix = "",
+  suffix = ""
+) {
+  const startTime = performance.now();
+  const startValue = 0;
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Easing function (ease-out cubic)
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const currentValue = Math.floor(
+      startValue + (target - startValue) * easeOut
+    );
+
+    element.textContent = prefix + currentValue.toLocaleString() + suffix;
+    element.classList.add("counting");
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      element.classList.remove("counting");
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+// ============================================
+// SCROLL REVEAL ANIMATIONS
+// ============================================
+(function initScrollReveal() {
+  // FIRST: Add reveal classes to sections
+  document.querySelectorAll("section").forEach((section, index) => {
+    if (!section.classList.contains("hero")) {
+      section.classList.add("reveal");
+      section.style.transitionDelay = `${index * 0.1}s`;
+    }
+  });
+
+  // THEN: Query for all reveal elements (now including the sections we just added)
+  const revealElements = document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children"
+  );
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+
+          // If element has counter data, animate it
+          const counter = entry.target.querySelector("[data-counter]");
+          if (counter) {
+            const target = parseInt(counter.dataset.counter);
+            const prefix = counter.dataset.prefix || "";
+            const suffix = counter.dataset.suffix || "";
+            animateCounter(counter, target, 2000, prefix, suffix);
+          }
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px",
+    }
+  );
+
+  // FINALLY: Observe all reveal elements
+  revealElements.forEach((el) => revealObserver.observe(el));
+})();
+
+// ============================================
+// LIVE PRICE TICKER ANIMATION
+// ============================================
+(function initPriceTicker() {
+  const tickerPrice = document.getElementById("tickerPrice");
+  const tickerChange = document.getElementById("tickerChange");
+  const tickerParticipants = document.getElementById("tickerParticipants");
+
+  if (!tickerPrice) return;
+
+  let basePrice = 0.003;
+  let participants = 1847;
+
+  function updateTicker() {
+    // Simulate small price fluctuations (±0.5%)
+    const fluctuation = (Math.random() - 0.5) * 0.00003;
+    basePrice += fluctuation;
+    basePrice = Math.max(0.0029, Math.min(0.0032, basePrice)); // Keep in range
+
+    const changePercent = ((basePrice - 0.003) / 0.003) * 100;
+
+    tickerPrice.textContent = "$" + basePrice.toFixed(4);
+
+    if (changePercent >= 0) {
+      tickerChange.textContent = "+" + changePercent.toFixed(2) + "%";
+      tickerChange.className = "ticker-change positive";
+    } else {
+      tickerChange.textContent = changePercent.toFixed(2) + "%";
+      tickerChange.className = "ticker-change negative";
+    }
+
+    // Occasionally increase participants
+    if (Math.random() > 0.7) {
+      participants += Math.floor(Math.random() * 3) + 1;
+      tickerParticipants.textContent = participants.toLocaleString();
+    }
+  }
+
+  // Update every 3 seconds
+  setInterval(updateTicker, 3000);
+})();
+
+// ============================================
+// SMOOTH SECTION TRANSITIONS
+// ============================================
+(function enhanceNavigation() {
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      if (href === "#" || href === "#top") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
+})();
+
+// ============================================
+// MAGNETIC BUTTON EFFECT
+// ============================================
+(function initMagneticButtons() {
+  const buttons = document.querySelectorAll(".btn-primary");
+
+  buttons.forEach((button) => {
+    button.addEventListener("mousemove", function (e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      this.style.transform = `translateY(-3px) translate(${x * 0.1}px, ${
+        y * 0.1
+      }px) scale(1.02)`;
+    });
+
+    button.addEventListener("mouseleave", function () {
+      this.style.transform = "";
+    });
+  });
+})();
+
 // Mobile Menu Toggle
 const mobileMenuToggle = document.getElementById("mobileMenuToggle");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -28,10 +423,7 @@ if (mobileMenuToggle && mobileMenu) {
 
   // Close mobile menu on window resize if open
   window.addEventListener("resize", function () {
-    if (
-      window.innerWidth > 840 &&
-      mobileMenu.classList.contains("active")
-    ) {
+    if (window.innerWidth > 840 && mobileMenu.classList.contains("active")) {
       mobileMenuToggle.classList.remove("active");
       mobileMenu.classList.remove("active");
       mobileMenuToggle.setAttribute("aria-expanded", "false");
@@ -177,21 +569,29 @@ if (registerModal) {
     if (cachedData) {
       try {
         const data = JSON.parse(cachedData);
-        if (document.getElementById("fullName")) document.getElementById("fullName").value = data.fullName || "";
-        if (document.getElementById("email")) document.getElementById("email").value = data.email || "";
-        if (document.getElementById("walletAddress")) document.getElementById("walletAddress").value =
-          data.walletAddress || "";
-        if (document.getElementById("phoneNumber")) document.getElementById("phoneNumber").value =
-          data.phoneNumber || "";
-        if (document.getElementById("country")) document.getElementById("country").value = data.country || "";
-        if (document.getElementById("investmentAmount")) document.getElementById("investmentAmount").value =
-          data.investmentAmount || "";
-        if (document.getElementById("referralCode")) document.getElementById("referralCode").value =
-          data.referralCode || "";
-        if (document.getElementById("acceptedTerms")) document.getElementById("acceptedTerms").checked =
-          data.acceptedTerms || false;
-        if (document.getElementById("receiveUpdates")) document.getElementById("receiveUpdates").checked =
-          data.receiveUpdates || false;
+        if (document.getElementById("fullName"))
+          document.getElementById("fullName").value = data.fullName || "";
+        if (document.getElementById("email"))
+          document.getElementById("email").value = data.email || "";
+        if (document.getElementById("walletAddress"))
+          document.getElementById("walletAddress").value =
+            data.walletAddress || "";
+        if (document.getElementById("phoneNumber"))
+          document.getElementById("phoneNumber").value = data.phoneNumber || "";
+        if (document.getElementById("country"))
+          document.getElementById("country").value = data.country || "";
+        if (document.getElementById("investmentAmount"))
+          document.getElementById("investmentAmount").value =
+            data.investmentAmount || "";
+        if (document.getElementById("referralCode"))
+          document.getElementById("referralCode").value =
+            data.referralCode || "";
+        if (document.getElementById("acceptedTerms"))
+          document.getElementById("acceptedTerms").checked =
+            data.acceptedTerms || false;
+        if (document.getElementById("receiveUpdates"))
+          document.getElementById("receiveUpdates").checked =
+            data.receiveUpdates || false;
       } catch (error) {
         console.error("Error loading cached form data:", error);
       }
@@ -311,7 +711,8 @@ if (registerModal) {
       // Disable submit button
       if (submitBtn) {
         submitBtn.disabled = true;
-        if (submitBtnText) submitBtnText.innerHTML = '<div class="spinner"></div> Обработка...';
+        if (submitBtnText)
+          submitBtnText.innerHTML = '<div class="spinner"></div> Обработка...';
       }
 
       try {
@@ -353,7 +754,8 @@ if (registerModal) {
         // Re-enable submit button
         if (submitBtn) {
           submitBtn.disabled = false;
-          if (submitBtnText) submitBtnText.innerHTML = "✨ Регистрирай се за Pre-Sale";
+          if (submitBtnText)
+            submitBtnText.innerHTML = "✨ Регистрирай се за Pre-Sale";
         }
       }
     });
@@ -373,6 +775,9 @@ if (registerModal) {
   } else {
     startTime = parseInt(startTime);
   }
+
+  // Declare timerInterval before the function that uses it
+  let timerInterval;
 
   function updateCountdown() {
     // Изчисли изминалото време
@@ -401,13 +806,12 @@ if (registerModal) {
     }
 
     // Ако времето е изтекло, спри таймера
-    if (remaining === 0) {
+    if (remaining === 0 && timerInterval) {
       clearInterval(timerInterval);
     }
   }
 
   // Започни таймера
   updateCountdown(); // Извикай веднага
-  const timerInterval = setInterval(updateCountdown, 1000); // После на всяка секунда
+  timerInterval = setInterval(updateCountdown, 1000); // После на всяка секунда
 })();
-
